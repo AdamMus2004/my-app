@@ -1,35 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import {useState} from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+function Welcome(props) {
+    return <h1>Hej {props.name}👋</h1>;
+}
+function ExerciseNumber(props) {
+    return <h1>Zadanie numer: {props.nr}</h1>;
 }
 
-export default App
+function App(){
+    const hobby = "programowanie";
+    const [count, setCount] = useState(0);
+    const tasks = ["Nauka Reacta", "Zrobić obiad", "Spacer"];
+    const [showTasks, setShowTasks] = useState(true);
+    return (
+        <div>
+            <ExerciseNumber nr={1}/>
+            <Welcome name="Adam"/>
+            <p>Moje hobby to {hobby}</p>
+            <Welcome name="Kasia"/>
+            <Welcome name="Tomek"/>
+            <ExerciseNumber nr={2}/>
+            <p>Kliknięto {count} razy</p>
+            <button onClick={() => setCount(count + 1)}>Klikniej mnie!</button>
+            <ul>
+                <li>{tasks[0]}</li>
+                <li>{tasks[1]}</li>
+                <li>{tasks[2]}</li>
+            </ul>
+            <ul>
+                {tasks.map((tasks, index) => <li key={index}>{tasks}</li>)}
+            </ul>
+            <ExerciseNumber nr={3}/>
+            <button onClick={() => setShowTasks(!showTasks)}>{showTasks ? "Ukryj listę" : " Pokaż listę"}</button>
+            {showTasks ? (
+                <ul>
+                    {tasks.map((task, index) =>
+                        (<li key={index}>{task}</li>
+                        ))}
+                </ul>
+            ) : (
+                <p>Lista jest ukryta</p>
+            )}
+
+        </div>
+
+    );
+}
+
+export default App;
+
